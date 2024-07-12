@@ -6,43 +6,55 @@ var
   BodyText = require('moonstone/BodyText'),
   Marquee = require('moonstone/Marquee'),
   LunaService = require('enyo-webos/LunaService'),
-	Divider = require('moonstone/Divider'),
-	Scroller = require('moonstone/Scroller'),
+  Divider = require('moonstone/Divider'),
+  Scroller = require('moonstone/Scroller'),
   Item = require('moonstone/Item'),
-	ToggleItem = require('moonstone/ToggleItem'),
-	Group = require('enyo/Group');
+  ToggleItem = require('moonstone/ToggleItem'),
+  Group = require('enyo/Group');
 
-var basePath = "/media/developer/apps/usr/palm/applications/org.webosbrew.custom-screensaver";
+var basePath = "/media/developer/apps/usr/palm/applications/org.lucasfeijo.custom-screensaver";
 var applyPath = basePath + "/assets/apply.sh";
-var linkPath = "/var/lib/webosbrew/init.d/50-custom-screensaver";
+var linkPath = "/var/lib/lucasfeijo/init.d/50-custom-screensaver";
 module.exports = kind({
   name: 'MainPanel',
   kind: Panel,
   title: 'webOS Custom Screensaver',
-  titleBelow: "webosbrew.org",
+  titleBelow: "lucasfeijo.com.br",
   headerType: 'medium',
   components: [
-    {kind: FittableColumns, classes: 'enyo-center', fit: true, components: [
-      {kind: Scroller, fit: true, components: [
-        {classes: 'moon-hspacing', controlClasses: 'moon-12h', components: [
-          {components: [
-            // {kind: Divider, content: 'Toggle Items'},
-            {kind: ToggleItem, name: "autostart", content: 'Autostart', checked: true, disabled: true, onchange: "autostartToggle"},
-            {kind: Item, components: [
-              {kind: Marquee.Text, content: 'Apply temporarily'},
-              {kind: BodyText, style: 'margin: 10px 0', content: 'This will only enable custom screensaver until a reboot'},
-            ], ontap: "temporaryApply"},
-            {kind: Item, content: 'Test run screensaver', ontap: "testRun"},
-          ]},
-        ]},
-      ]},
-    ]},
-    {components: [
-      {kind: Divider, content: 'Result'},
-      {kind: BodyText, name: 'result', content: 'Nothing selected...'}
-    ]},
-    {kind: LunaService, name: 'statusCheck', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onStatusCheck', onError: 'onStatusCheck'},
-    {kind: LunaService, name: 'exec', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onExec', onError: 'onExec'},
+    {
+      kind: FittableColumns, classes: 'enyo-center', fit: true, components: [
+        {
+          kind: Scroller, fit: true, components: [
+            {
+              classes: 'moon-hspacing', controlClasses: 'moon-12h', components: [
+                {
+                  components: [
+                    // {kind: Divider, content: 'Toggle Items'},
+                    { kind: ToggleItem, name: "autostart", content: 'Autostart', checked: true, disabled: true, onchange: "autostartToggle" },
+                    {
+                      kind: Item, components: [
+                        { kind: Marquee.Text, content: 'Apply temporarily' },
+                        { kind: BodyText, style: 'margin: 10px 0', content: 'This will only enable custom screensaver until a reboot' },
+                      ], ontap: "temporaryApply"
+                    },
+                    { kind: Item, content: 'Test run screensaver', ontap: "testRun" },
+                  ]
+                },
+              ]
+            },
+          ]
+        },
+      ]
+    },
+    {
+      components: [
+        { kind: Divider, content: 'Result' },
+        { kind: BodyText, name: 'result', content: 'Nothing selected...' }
+      ]
+    },
+    { kind: LunaService, name: 'statusCheck', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onStatusCheck', onError: 'onStatusCheck' },
+    { kind: LunaService, name: 'exec', service: 'luna://org.webosbrew.hbchannel.service', method: 'exec', onResponse: 'onExec', onError: 'onExec' },
   ],
 
   bindings: [],
@@ -59,7 +71,7 @@ module.exports = kind({
   },
 
   temporaryApply: function (command) {
-    this.exec(applyPath); 
+    this.exec(applyPath);
   },
 
   exec: function (command) {
@@ -90,7 +102,7 @@ module.exports = kind({
     console.info("toggle:", sender);
 
     if (sender.active) {
-      this.exec('mkdir -p /var/lib/webosbrew/init.d && ln -sf ' + applyPath + ' ' + linkPath);
+      this.exec('mkdir -p /var/lib/lucasfeijo/init.d && ln -sf ' + applyPath + ' ' + linkPath);
     } else {
       this.exec('rm -rf ' + linkPath);
     }
