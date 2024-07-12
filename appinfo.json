@@ -1,12 +1,12 @@
 {
-    "id": "org.webosbrew.custom-screensaver",
+    "id": "org.lucasfeijo.custom-screensaver",
     "version": "1.0.1",
-    "vendor": "webosbrew.org",
+    "vendor": "lucasfeijo.com.br",
     "title": "Custom Screensaver",
-    "icon": "assets/icon80.png",
-    "largeIcon": "assets/icon130.png",
+    "icon": "assets/Subject.png",
+    "largeIcon": "assets/Subject.png",
     "main": "index.html",
     "iconColor": "#ffffff",
     "type": "web",
-    "appDescription": "The last custom webOS Screensaver you will ever need"
+    "appDescription": "The last custom webOS Screensaver of Francisca you will ever need"
 }
